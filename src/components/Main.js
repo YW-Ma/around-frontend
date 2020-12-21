@@ -8,13 +8,23 @@ function Main(props) {
   const { isLoggedIn, handleLoggedIn } = props;
 
   const showLogin = () => {
-    // case1: already logged in
-    // case2: hasn't logged in
+    // case1: already logged in --> home
+    // case2: hasn't logged in --> login
     return isLoggedIn
       ?
       <Redirect to="/home"/>
       :
-      <Login isLoggedIn={isLoggedIn} handleLoggedIn={handleLoggedIn}/>
+      <Login handleLoggedIn={handleLoggedIn}/>
+  }
+
+  const showHome = () => {
+    // case1: already logged in --> home
+    // case2: hasn't logged in --> login
+    return isLoggedIn
+      ?
+      <Home/>
+      :
+      <Redirect to="/login"/>
   }
 
   return (
@@ -24,7 +34,7 @@ function Main(props) {
       <Switch>
         <Route path="/login" render={showLogin}/>
         <Route path="/register" component={Register}/>
-        <Route path="/home" component={Home}/>
+        <Route path="/home" render={showHome}/>
       </Switch>
     </div>
   );

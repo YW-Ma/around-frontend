@@ -2,13 +2,39 @@ import React from 'react';
 import {Form, Input, Button, message} from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom"
+import axios from "axios"
+
 import {BASE_URL} from "../constants"
-import * as axios from "axios"
+
+
+const formItemLayout = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 8 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 16 }
+  }
+};
+const tailFormItemLayout = {
+  wrapperCol: {
+    xs: {
+      span: 16,
+      offset: 0
+    },
+    sm: {
+      span: 16,
+      offset: 8
+    }
+  }
+};
 
 function Login(props) {
-  const {handleLoggedIn} = props;
+  const { handleLoggedIn } = props;
 
   const onFinish = values => {
+    // step1: collect data
     console.log('Received values of form: ', values);
     const { username, password } = values;
 
@@ -22,6 +48,7 @@ function Login(props) {
       headers: { "Content-TYpe": "application/json" }
     };
 
+    // step2: make request
     axios(opt)
       .then(res => {
         if (res.status === 200) {
@@ -38,19 +65,33 @@ function Login(props) {
 
   return (
     <Form
+      {...formItemLayout}
       name="normal_login"
-      className="login-form"
       onFinish={onFinish}
+      className="login-form"
     >
       <Form.Item
         name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
+        label="Username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Username!'
+          }
+          ]}
       >
         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
       </Form.Item>
+
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Please input your Password!' }]}
+        label="Password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!'
+          }
+          ]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -59,13 +100,12 @@ function Login(props) {
         />
       </Form.Item>
 
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit" className="login-btn">
           Log in
         </Button>
-        {/*Or <a href="">register now!</a>*/}
-        Or <Link to="/register">register now!</Link>
       </Form.Item>
+      Or <Link to="/register">register now!</Link>
     </Form>
   );
 }
