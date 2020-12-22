@@ -39,7 +39,7 @@ function Login(props) {
     const { username, password } = values;
 
     const opt = {
-      method: "POST",
+      method: "POST",                   // GET 意味着通过 URI 来识别资源。 所以我在后端设计的登陆方法是POST而不是GET。
       url: `${BASE_URL}/signin`,
       data: {
         username: username,

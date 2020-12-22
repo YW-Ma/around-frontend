@@ -50,7 +50,7 @@ function Register(props) {
         console.log(response);
         if (response.status === 200) {
           message.success("Registration succeed!");
-          props.history.push("/login");               // we use history object here
+          props.history.push("/login");               // we use history object here to switch to login page.
         }
       })
       .catch((error) => {
