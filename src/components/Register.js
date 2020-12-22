@@ -74,7 +74,15 @@ function Register(props) {
           {
             required: true,
             message: "Please input your Username!"
-          }
+          },
+          () => ({
+            validator(rule, value) {
+              if (value === "ma_yaowei") {
+                return Promise.reject("Goodbye Yaowei!");
+              }
+              return Promise.resolve();
+            }
+          })
         ]}
       >
         <Input />
@@ -99,13 +107,13 @@ function Register(props) {
         label="Confirm Password"
         dependencies={["password"]}
         hasFeedback
-        rules={[
+        rules={[    // ! rules: an array of objects & callbacks
           {
             required: true,
             message: "Please confirm your password!"
           },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
+          ({ getFieldValue }) => ({   // ! parameter gives me a lot of methods, we only need getFieldValue method.
+            validator(rule, value) {  // ! return a validator function where we can return a Promise
               if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
@@ -113,7 +121,7 @@ function Register(props) {
                 "The two passwords that you entered do not match!"
               );
             }
-          })
+          }),
         ]}
       >
         <Input.Password />
