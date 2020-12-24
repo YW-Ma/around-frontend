@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Modal, Button } from 'antd';
+import {PostForm} from "./PostForm"
 
 function CreatePostButton(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -28,7 +29,7 @@ function CreatePostButton(props) {
              visible={isModalVisible}
              onOk={handleOk}
              onCancel={handleCancel}>
-        <p>Some posts...</p>
+        <PostForm/>
       </Modal>
     </>
   );
