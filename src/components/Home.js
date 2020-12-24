@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar"
 import PhotoGallery from "./PhotoGallery";
 import {BASE_URL, SEARCH_KEY, TOKEN_KEY} from "../constants"
 import * as axios from "axios"
+import CreatePostButton from "./CreatePostButton"
 const {TabPane} = Tabs;
 
 function Home(props) {
@@ -113,7 +114,7 @@ function Home(props) {
     setSearchOption({type: type, keyword: keyword});
   }
 
-  const operations = <Button>Button</Button>;
+  const operations = <CreatePostButton/>;
   return (
     <div className="home">
       <SearchBar handleSearch={handleSearch}/>

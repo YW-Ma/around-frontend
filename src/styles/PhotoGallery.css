@@ -1,6 +1,6 @@
 .gallery-caption {
-    backgroundColor: "rgba(0; 0; 0; 0.6)";
-    maxHeight: 240px;
+    background-color: rgba(0, 0, 0, 0.4);
+    max-height: 240px;
     overflow: hidden;
     position: absolute;
     bottom: 0;
@@ -12,7 +12,7 @@
 
 .gallery-wrapper {
     display: block;
-    minHeight: 1px;
+    min-height: 1px;
     width: 100%;
     border: 1px solid #ddd;
     overflow: auto;
