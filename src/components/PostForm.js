@@ -31,7 +31,7 @@ export const PostForm = forwardRef((props, formRef) => {
         <Input />
       </Form.Item>
 
-      <Form.Item label="Dragger">
+      <Form.Item label="Image/Video">
         <Form.Item
           name="uploadPost"
           valuePropName="fileList"
