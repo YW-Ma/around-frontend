@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {message, Tabs, Row, Col} from 'antd';
+import {message, Tabs, Row, Col, Button} from 'antd';
 import SearchBar from "./SearchBar"
 import PhotoGallery from "./PhotoGallery";
 import {BASE_URL, SEARCH_KEY, TOKEN_KEY} from "../constants"
@@ -7,6 +7,7 @@ import * as axios from "axios"
 const {TabPane} = Tabs;
 
 function Home(props) {
+  const [posts, setPost] = useState([]); // 数据存在posts下面
   const [activeTab, setActiveTab] = useState("image");
   const [searchOption, setSearchOption] = useState({
     type: SEARCH_KEY.all,
@@ -40,7 +41,7 @@ function Home(props) {
       .then((res) => {
         if (res.status === 200) {
           console.log(res.data);
-          // setPost(res.data);
+          setPost(res.data);
           message.success("Enjoy!");
         }
       })
@@ -60,7 +61,51 @@ function Home(props) {
     fetchPost(searchOption); // fetchPost when: did mount, click all, click search button
   }, [searchOption]); // change searchOption when: click all, or click search button
 
-  const renderPost = type =>{};
+  const renderPosts = (type) => {
+    if (!posts || posts.length === 0) {
+      return <div>No data!</div>;
+    }
+    if (type === "image") {
+      const imageArr = posts
+        .filter((item) => item.type === "image")
+        .map((image) => {
+          return {
+            src: image.url,
+            user: image.user,
+            caption: image.message,
+            thumbnail: image.url,
+            thumbnailWidth: 300,
+            thumbnailHeight: 200
+          };
+        });
+
+      return <PhotoGallery images={imageArr} />;
+    } else if (type === "video") {
+      // video tab下：
+      // 返回一个Row
+      // Row里面，把post中video类别的filte出来，然后映射为一个Column。
+      // Col要写key, 因为是重复出现的子元素，所以要给一个key，否则VirtualDOM难以识别。它们
+      // Video标签要给src属性、是否可控属性、类名。（设置样式）
+
+      return (
+        <Row gutter={32}>
+          {posts
+            .filter((post) => post.type === "video")
+            .map((post) => (
+              <Col span={8} key={post.url}>
+                <video src={post.url}
+                       controls={true}
+                       className="video-block"
+                />
+                <p>
+                  {post.user}: {post.message}
+                </p>
+              </Col>
+            ))}
+        </Row>
+      );
+    }
+  };
 
   const handleSearch = (opt) => {
     // trigger useEffect.
@@ -68,6 +113,7 @@ function Home(props) {
     setSearchOption({type: type, keyword: keyword});
   }
 
+  const operations = <Button>Button</Button>;
   return (
     <div className="home">
       <SearchBar handleSearch={handleSearch}/>
@@ -75,16 +121,13 @@ function Home(props) {
         <Tabs
           onChange={(key) => setActiveTab(key)}
           defaultActiveKey="image"
+          tabBarExtraContent={operations}
         >
           <TabPane tab="Image" key="image">
-            Content
+            {renderPosts("image")}
           </TabPane>
           <TabPane tab="Video" key="video">
-            <Row>
-              {
-                <Col></Col>
-              }
-            </Row>
+            {renderPosts("video")}
           </TabPane>
         </Tabs>
       </div>
