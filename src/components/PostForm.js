@@ -44,6 +44,7 @@ export const PostForm = forwardRef((props, formRef) => {
             }
           ]}
         >
+          {/*beforeUplaod set false, prevent auto upload*/}
           <Upload.Dragger name="files" beforeUpload={() => false}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
