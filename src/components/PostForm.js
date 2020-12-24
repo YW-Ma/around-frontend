@@ -17,6 +17,7 @@ export const PostForm = forwardRef((props, formRef) => {
 
   return (
     // message & dragger
+    // ref = {refInstance => {CreatePostButton.postFOrm = refInstance}}
     <Form name="validate_other" {...formItemLayout} ref={formRef}>
       <Form.Item
         name="description"

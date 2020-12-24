@@ -75,8 +75,8 @@ function Home(props) {
             user: image.user,
             caption: image.message,
             thumbnail: image.url,
-            thumbnailWidth: 300,
-            thumbnailHeight: 200
+            // thumbnailWidth: 300,
+            // thumbnailHeight: 200
           };
         });
 
@@ -114,13 +114,23 @@ function Home(props) {
     setSearchOption({type: type, keyword: keyword});
   }
 
-  const operations = <CreatePostButton/>;
+  const onShowPost = (tab) => {
+    // auto rerender after an uploading.
+    setActiveTab(tab);
+    // 注意，不要立马进行fetch Post，要等一下下。后台虽然返回200代表存储完毕，但是还是需要
+    setTimeout(() => {
+      setSearchOption(prevState=>{return prevState});
+    }, 1000);
+  }
+
+  const operations = <CreatePostButton onShowPost={onShowPost}/>;
   return (
     <div className="home">
       <SearchBar handleSearch={handleSearch}/>
       <div className="display">
         <Tabs
           onChange={(key) => setActiveTab(key)}
+          activeKey={activeTab}
           defaultActiveKey="image"
           tabBarExtraContent={operations}
         >
