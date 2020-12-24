@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { Form, Upload, Input } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
-
+// 用forwardRef包裹了以后，就可以接受props和formRef了（和class component不一样）
 export const PostForm = forwardRef((props, formRef) => {
   const formItemLayout = {
     labelCol: { span: 6 },
@@ -31,18 +31,13 @@ export const PostForm = forwardRef((props, formRef) => {
         <Input />
       </Form.Item>
 
+      {/*两层Form.Item: 第一层负责样式，第二层负责内容*/}
       <Form.Item label="Image/Video">
         <Form.Item
           name="uploadPost"
           valuePropName="fileList"
           getValueFromEvent={normFile}
           noStyle
-          rules={[
-            {
-              required: true,
-              message: "Please select an image/video!"
-            }
-          ]}
         >
           {/*beforeUplaod set false, prevent auto upload*/}
           <Upload.Dragger name="files" beforeUpload={() => false}>
