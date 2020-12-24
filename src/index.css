@@ -5,6 +5,7 @@
 @import "styles/Register.css";
 @import "styles/Home.css";
 @import "styles/SearchBar.css";
+@import "styles/PhotoGallery.css";
 
 body {
   margin: 0;

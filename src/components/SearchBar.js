@@ -23,14 +23,14 @@ function SearchBar(props) {
   }
 
   const handleSearch = (value) => {
-    // part 1
-    // Case1: the key to search is empty && the user doesn't intend to search all posts.
+    // case 1: the key to search is empty && the user doesn't intend to search all posts.
     if (value === "" && searchType !== SEARCH_KEY.all) {
       setError("Please input your search keyword!");
       return;
     }
-    // Case2: search bar has key or user wants search all posts.
-    setError("");
+    // case 2: do search based on keyword and type.
+    // inform Home to fetch data
+    props.handleSearch({type: searchType, keyword: value});
   }
 
   return (

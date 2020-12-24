@@ -27,17 +27,13 @@ function Main(props) {
       <Redirect to="/login"/>
   }
 
-  const showRegister = () => {
-    return <Register handleLoggedIn={handleLoggedIn} />
-  }
-
   return (
     // Route负责路由切换
     // Switch负责只显示一个完全匹配项
     <div className="main">
       <Switch>
         <Route path="/login" render={showLogin}/>
-        <Route path="/register" render={showRegister}/>
+        <Route path="/register" component={Register}/>
         <Route path="/home" render={showHome}/>
       </Switch>
     </div>
