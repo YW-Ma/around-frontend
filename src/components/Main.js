@@ -7,7 +7,8 @@ import {Redirect, Switch, Route} from "react-router-dom"
 function Main(props) {
   const { isLoggedIn, handleLoggedIn } = props;
 
-  const showLogin = () => {
+  const showLogin = () => {         // when user logged in, url don't change, only the state (isLoggedIn) has been changed.
+                                    // And this function change url based on this changed state.
     // case1: already logged in --> home
     // case2: hasn't logged in --> login
     return isLoggedIn
