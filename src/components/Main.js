@@ -34,7 +34,7 @@ function Main(props) {
       <Switch>
         <Route path="/login" render={showLogin}/>
         <Route path="/register" component={Register}/>
-        <Route path="/home" render={showHome}/>
+        <Route path="/" render={showHome}/>
       </Switch>
     </div>
   );
